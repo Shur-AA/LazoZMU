@@ -14,7 +14,9 @@
   font-size: 13px;
   font-weight: 500;
   font-family: 'Source Code Pro', monospace; }
-
+*{
+outline: none !important
+}
 .info_buttoms {
   position: relative;
   background: grey;
