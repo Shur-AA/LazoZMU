@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ЗМУ Соколовка</title>
+    <link href='../css/layout/main.css' , rel='stylesheet', type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,500,700&display=swap&subset=cyrillic" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/annotations.js"></script>
+    <script src="https://www.highcharts.com/media/com_demo/js/highslide-full.min.js"></script>
+    <script src="https://www.highcharts.com/media/com_demo/js/highslide.config.js" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="https://www.highcharts.com/media/com_demo/css/highslide.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+
+</head>
+<body>
+    <div class="wrapper">
+        <div class="zaplatka"></div>
+        <div id="graphic-container" ></div>
+        <div class="wrapper__container">
+            <div class="content">
+                <div class="infobuttoms">
+                    <button class="info_buttoms" id = "what">ЧТО ТАКОЕ ЗМУ</button>
+                    <div class="text-hidden">
+                        <b>ЗИМНИЙ МАРШРУТНЫЙ УЧЁТ</b> — ежегодная работа в каждом заповеднике России. Она проводится с целью определения видового состава и численности животных, прежде всего, копытных и хищных, а также птиц. Это помогает оценить состояние их популяций. Результаты маршрутных исследований заносятся в основной научный документ заповедника — <b>Летопись природы</b>.
+                    </div>
+                    <div class="text-hidden">
+                        Для закрепления маршрутов на местности используются пикеты — обозначенные цветом деревья через равные расстояния. В летнее время ЗМУ используются не только для изучения животного мира, но и растительных сообществ. <b>Цифрами</b> на графике обозначены номера пикетов; <b>в плавающем окне</b> — краткая информация о его положении; <b>нажмите</b> на точку пикета и Вы узнаете, какие растения там можно встретить.
+                    </div>
+                    <button class="info_buttoms" id = "how">КАК РАБОТАТЬ С ГРАФИКОМ</button>
+                    
+                </div>
+                <div class="slider-container">
+                    <div class="slider">
+                        <div><img class="slider-img" src="../img/piket54.JPG" alt="Пикет №54" title="Пикет №54"></div>
+                        <div><img class="slider-img" src="../img/barhat.jpg" alt="Бархат амурский" title="Бархат амурский"></div>
+                        <div><img class="slider-img" src="../img/yasen.jpg" alt="Ясень амурский" title="Ясень амурский"></div>
+                        <div><img class="slider-img" src="../img/viaz.jpg" alt="Вяз амурский" title="Вяз амурский"></div>
+                        <div><img class="slider-img" src="../img/piketmap.jpg" alt="Карта пикетов" title="Плановое расположение пикетов"></div>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+        <footer class="footer">
+                  &#xA9 ФГБУ "Лазовский заповедник и национальный парк 'Зов тигра'"; МГУ им. М.В. Ломоносова
+        </footer>
+    </div>
+    
+<!-- graphic -->
+    <script>
+        Highcharts.chart('graphic-container', {
+
+            chart: {
+                scrollablePlotArea: {
+                    minWidth: 700
+                },
+                type: 'area'
+            },
+
+            data: {
+                csvURL: 'https://shur-aa.github.io/LazoZMU/textdata/sokolovka.csv',
+                beforeParse: function (csv) {
+                    return csv.replace(/\n\n/g, '\n');
+                }
+            },
+
+            title: {
+                text: 'ЗМУ "Соколовка"'
+            },
+
+            subtitle: {
+                text: 'Продольный профиль по маршруту'
+            },
+
+            xAxis: {
+                tickInterval: 200,
+                tickWidth: 0,
+                title: {
+                    text: 'Протяжённость маршрута, км'
+                },
+                gridLineWidth: 1,
+                labels: {
+                    align: 'left',
+                    x: -10
+                }
+            },
+
+            yAxis: [{ // left y axis
+                title: {
+                    text: 'Высота, м'
+                },
+                labels: {
+                    align: 'left',
+                    x: -5,
+                    y: 13,
+                },
+                showFirstLabel: false,
+                floor: 20
+            }, { // right y axis
+                linkedTo: 0,
+                gridLineWidth: 0,
+                opposite: true,
+                title: {
+                    text: 'Высота, м'
+                },
+                labels: {
+                    align: 'right',
+                    x: 5,
+                    y: 13,
+                },
+                showFirstLabel: false
+            }],
+
+            credits: {
+                enabled: false
+            },
+            // #78061B
+            annotations: [{
+                labelOptions: {
+                    backgroundColor: 'grey',
+                    allowOverlap: true,
+                    // verticalAlign: 'top',
+                    y: -15
+                },
+                labels: [ {
+                    point: {
+                        xAxis: 0,
+                        yAxis: 0,
+                        x: 200,
+                        y: 289
+                    },
+                    text: '36'
+                },{
+                    point: {
+                        xAxis: 0,
+                        yAxis: 0,
+                        x: 400,
+                        y: 258
+                    },
+                    text: '37'
+                }, {
+                    point: {
+                        xAxis: 0,
+                        yAxis: 0,
+                        x: 600,
+                        y: 249
+                    },
+                    text: '38'
+                },{
+                    point: {
+                        xAxis: 0,
+                        yAxis: 0,
+                        x: 800,
+                        y: 233
+                    },
+                    text: '39'
+                }, {
+                    point: {
+                        xAxis: 0,
+                        yAxis: 0,
+                        x: 1000,
+                        y: 221
+                    },
+                    text: '40'
+                },{
+                    point: {
+                        xAxis: 0,
+                        yAxis: 0,
+                        x: 1200,
+                        y: 213
+                    },
+                    text: '41'
+                }, {
+                    point: {
+                        xAxis: 0,
+                        yAxis: 0,
+                        x: 1400,
+                        y: 206
+                    },
+                    text: '42'
+                },{
+                    point: {
+                        xAxis: 0,
+                        yAxis: 0,
+                        x: 1600,
+                        y: 198
+                    },
+                    text: '43'
+                }, {
+                    point: {
+                        xAxis: 0,
+                        yAxis: 0,
+                        x: 1800,
+                        y: 193
+                    },
+                    text: '44'
+                },{
+                    point: {
+                        xAxis: 0,
+                        yAxis: 0,
+                        x: 2000,
+                        y: 186
+                    },
+                    text: '45'
+                }, {
+                    point: {
+                        xAxis: 0,
+                        yAxis: 0,
+                        x: 2200,
+                        y: 178
+                    },
+                    text: '46'
+                },{
+                    point: {
+                        xAxis: 0,
+                        yAxis: 0,
+                        x: 2400,
+                        y: 174
+                    },
+                    text: '47'
+                }, {
+                    point: {
+                        xAxis: 0,
+                        yAxis: 0,
+                        x: 2600,
+                        y: 170
+                    },
+                    text: '48'
+                },{
+                    point: {
+                        xAxis: 0,
+                        yAxis: 0,
+                        x: 2800,
+                        y: 166
+                    },
+                    text: '49'
+                }, {
+                    point: {
+                        xAxis: 0,
+                        yAxis: 0,
+                        x: 3000,
+                        y: 162
+                    },
+                    text: '50'
+                },{
+                    point: {
+                        xAxis: 0,
+                        yAxis: 0,
+                        x: 3200,
+                        y: 155
+                    },
+                    text: '51'
+                }, {
+                    point: {
+                        xAxis: 0,
+                        yAxis: 0,
+                        x: 3400,
+                        y: 155
+                    },
+                    text: '52'
+                },{
+                    point: {
+                        xAxis: 0,
+                        yAxis: 0,
+                        x: 3600,
+                        y: 148
+                    },
+                    text: '53'
+                }, {
+                    point: {
+                        xAxis: 0,
+                        yAxis: 0,
+                        x: 3800,
+                        y: 143
+                    },
+                    text: '54'
+                },{
+                    point: {
+                        xAxis: 0,
+                        yAxis: 0,
+                        x: 4000,
+                        y: 138
+                    },
+                    text: '55'
+                },{
+                    point: {
+                        xAxis: 0,
+                        yAxis: 0,
+                        x: 4200,
+                        y: 137
+                    },
+                    text: '56'
+                },{
+                    point: {
+                        xAxis: 0,
+                        yAxis: 0,
+                        x: 4400,
+                        y: 133
+                    },
+                    text: '57'
+                },{
+                    point: {
+                        xAxis: 0,
+                        yAxis: 0,
+                        x: 4600,
+                        y: 131
+                    },
+                    text: '58'
+                },{
+                    point: {
+                        xAxis: 0,
+                        yAxis: 0,
+                        x: 4800,
+                        y: 128
+                    },
+                    text: '59'
+                },{
+                    point: {
+                        xAxis: 0,
+                        yAxis: 0,
+                        x: 5000,
+                        y: 123
+                    },
+                    text: '60'
+                },{
+                    point: {
+                        xAxis: 0,
+                        yAxis: 0,
+                        x: 5200,
+                        y: 122
+                    },
+                    text: '61'
+                },{
+                    point: {
+                        xAxis: 0,
+                        yAxis: 0,
+                        x: 5400,
+                        y: 123
+                    },
+                    text: '62'
+                },{
+                    point: {
+                        xAxis: 0,
+                        yAxis: 0,
+                        x: 5600,
+                        y: 126
+                    },
+                    text: '63'
+                },{
+                    point: {
+                        xAxis: 0,
+                        yAxis: 0,
+                        x: 5800,
+                        y: 110
+                    },
+                    text: '64'
+                },{
+                    point: {
+                        xAxis: 0,
+                        yAxis: 0,
+                        x: 6000,
+                        y: 103
+                    },
+                    text: '65'
+                }]
+                },{labelOptions: {
+                    backgroundColor: 'grey',
+                    allowOverlap: true,
+                    verticalAlign: 'top',
+                    x: 1,
+                    y: 1
+                },
+                labels: [{
+                    point: {
+                        xAxis: 0,
+                        yAxis: 0,
+                        x: 25,
+                        y: 355
+                    },
+                    text: '35'
+                }]
+            },{labelOptions: {
+                    backgroundColor: '#C8E7A0',
+                    allowOverlap: true,
+                    x: -3,
+                    y: 15
+                },
+                labels: [{
+                    point: {
+                        xAxis: 0,
+                        yAxis: 0,
+                        x: 900,
+                        y: 380
+                    },
+                    text: '<-СВ'
+                }, {
+                    point: {
+                        xAxis: 0,
+                        yAxis: 0,
+                        x: 5700,
+                        y: 380
+                    },
+                    text: 'ЮЗ->'
+                }]
+            }],
+
+
+            legend: {
+                enabled: false
+            },
+
+            tooltip: {
+                shared: true,
+                crosshairs: true,
+                borderColor: '#9FB87A',
+                useHTML: true,
+                headerFormat: '<table>',
+                pointFormat: '<tr><td>Высота: </td>' +
+                    '<td class="intooltip"><b>{point.y} м</b></td></tr>' +
+                    '<tr><td>Расстояние от начала: </td>' +
+                    '<td class="intooltip"><b>{point.x} м</b></td></tr>',
+                footerFormat: '</table>'
+            },
+
+            plotOptions: {
+                series: {
+                    cursor: 'pointer',
+                    point: {
+                        events: {
+                            click: function (e) {
+                                const xhr = new XMLHttpRequest();
+                                xhr.open('GET', 'https://shur-aa.github.io/LazoZMU/textdata/sokolovka.json');
+                                xhr.send();
+                                xhr.onload = function () {
+                                    var text = JSON.parse(this.response);
+                                    console.log(text[5].descr);
+                                    hs.htmlExpand(null, {
+                                        pageOrigin: {
+                                            x: e.pageX || e.clientX,
+                                            y: e.pageY || e.clientY
+                                        },
+                                        headingText: 'Описание пикета ' + (e.point.index + 35),
+                                        maincontentText: text[e.point.index].descr,
+                                        width: 300
+                                    })
+                                };
+                            }
+                        }
+                    },
+                    marker: {
+                        lineWidth: 1
+                    }
+                }
+            },
+
+            series: [{
+                color: '#C8E7A0',
+                name: 'All sessions',
+                lineWidth: 4,
+                marker: {
+                    radius: 4
+                }
+            }, {
+                name: 'New users'
+            }]
+        });
+
+    </script>
+<!-- info buttons -->
+   <script>
+    $(document).ready(() => {
+    $("#what").on('click', e => {
+        let elem = $(e.currentTarget).next();
+        elem.slideToggle();
+    })
+    $("#how").on('click', e => {
+        let elem = $(e.currentTarget).prev();
+        elem.slideToggle();
+    })
+});
+   </script>
+<!-- slider -->
+    <script>
+        $(document).ready(function(){
+        $('.slider').bxSlider({captions: true});
+        });
+    </script>
+</body>
+</html>
