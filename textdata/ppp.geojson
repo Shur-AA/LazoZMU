@@ -1,0 +1,7 @@
+{
+"type": "FeatureCollection",
+"name": "ppp",
+"features": [
+{ "type": "Feature", "properties": { "id": 1 }, "geometry": { "type": "Point", "coordinates": [ 1401006.921517318347469, 2847127.779523842968047 ] } }
+]
+}
